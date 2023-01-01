@@ -1,0 +1,1 @@
+docker run --platform linux/x86_64 -it --rm -v $(pwd):/documents registry.gitlab.com/kanameg/textlint-asciidoc textlint $1
