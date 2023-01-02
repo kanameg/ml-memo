@@ -5,4 +5,4 @@ jobs:
   check-version:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "this is test"
+      - run: docker run --platform linux/x86_64 --rm -v $(pwd):/documents registry.gitlab.com/kanameg/textlint-asciidoc textlint 機械学習メモ.adoc
