@@ -96,3 +96,21 @@ test_x[num_cols] = scaler.transform(test_x[num_cols])
 実務上は学習データしか手に入らないので学習データのみで行う場合が多い。学習データのみで行うと過学習してしまうのでテストデータも含めて
 標準化するという考え方もある。
 
+
+==== Min-Maxスケーリング
+
+標準化と同様に変数のスケールを揃える方法で、変数の取り得ている範囲を0から1などの特定の区間におさめる方法。
+変換後の平均が0にならない、外れ値の影響を顕著に受けるなどの問題がある。範囲が決まっている値の場合は使う場合がある。
+
+Pythonではscikit-learnのMinMaxScalerクラスを利用することで変換することが可能。
+```python
+from sklearn.preprocessing import MinMaxScaler
+
+# 学習データに基づいて複数列のMin-Maxスケーリングを定義
+scaler = MinMaxScaler()
+scaler.fit(train_x[num_cols])
+
+# 変換後のデータで各列を置換
+train_x[num_cols] = scaler.transform(train_x[num_cols])
+test_x[num_cols] = scaler.transform(test_x[num_cols])
+```
