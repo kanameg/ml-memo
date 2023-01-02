@@ -12,4 +12,4 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.CR_PAT }}
       - name: Lint ascii documents
-        run: docker run --platform linux/x86_64 --rm -v $(pwd):/documents ghcr.io/kanameg/textlint-asciidoc textlint 機械学習メモ.adoc
+        run: docker run --platform linux/x86_64 --rm -v $(pwd):/documents ghcr.io/kanameg/textlint-asciidoc:latest textlint 機械学習メモ.adoc
