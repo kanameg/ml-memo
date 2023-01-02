@@ -152,6 +152,3 @@ GBDTのような決定木を利用するような場合は、ラベルエンコ�
 === frequency encoding
 
 === target encoding
-
-複数のがが出てくるのが問題がある。
-
