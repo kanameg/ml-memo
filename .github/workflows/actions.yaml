@@ -1,20 +1,36 @@
-name: github-actions-test
+name: Lint and Build PDF file
 
-on: [push]
+on:
+  push:
+    branches:
+      - master
+
 jobs:
   lint-docs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 
         uses: actions/checkout@v2 # Required to mount the Github Workspace to a volume
-      - name: Lint ascii documents
+      - name: Lint AsciiDoc documents
         uses: addnab/docker-run-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.CR_PAT }}
-          image: ghcr.io/kanameg/textlint-asciidoc:latest
+          image: kanameg/textlint-asciidoc:1.0.0
           options: -v ${{ github.workspace }}:/documents
           run: |
             ls -l
             textlint 機械学習メモ.adoc
+      - name: Build PDF file
+        uses: addnab/docker-run-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.CR_PAT }}
+          image: kanameg/asciidoctor-jp:1.0.0
+          options: -v ${{ github.workspace }}:/documents
+          run: |
+            ls -l
+            asciidoctor-pdf -a scripts=cjk 機械学習メモ.adoc
+            ls -l
