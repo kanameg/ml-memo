@@ -2,7 +2,14 @@ name: github-actions-test
 
 on: [push]
 jobs:
-  check-version:
+  lint-docs:
     runs-on: ubuntu-latest
     steps:
-      - run: docker run --platform linux/x86_64 --rm -v $(pwd):/documents ghcr.io/kanameg/textlint-asciidoc textlint 機械学習メモ.adoc
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.CR_PAT }}
+      -  name: Lint ascii documents
+        run: docker run --platform linux/x86_64 --rm -v $(pwd):/documents ghcr.io/kanameg/textlint-asciidoc textlint 機械学習メモ.adoc
