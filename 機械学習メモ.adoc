@@ -78,6 +78,20 @@ df['col'] = df['col1'].fillna(df['col1'].mean())  # 平均値で補完
 
 2値変数については、0と1の絶対値を変換されてしまう場合があるので、標準化を行わない方がよい。
 
+Pythonではscikit-learnのStandardScalerクラスを利用することで変換することが可能。
+
+```Python
+from sklearn.preprocessing import StandardScaler
+
+# 学習データに基づいて複数列の標準化を定義
+scaler = StandardScaler()
+scaler.fit(train_x[num_cols])
+
+# 変換後のデータで各列を置換
+train_x[num_cols] = scaler.transform(train_x[num_cols])
+test_x[num_cols] = scaler.transform(test_x[num_cols])
+```
+
 学習データとテストデータを使って標準化を行うか、学習データのみを使って標準化を行うかは基本的にはどちらでも大差はない。
 実務上は学習データしか手に入らないので学習データのみで行う場合が多い。学習データのみで行うと過学習してしまうのでテストデータも含めて
 標準化するという考え方もある。
