@@ -144,7 +144,6 @@ scikit-learnの変換を利用することで、自動的に正規分布へ近�
 GBDTのような決定木を利用するような場合は、ラベルエンコーディングが最も一般的な方法。
 
 === one hot encodeing
-このコードが辺なのがいい。
 
 === label encoding
 
