@@ -16,4 +16,5 @@ jobs:
           image: ghcr.io/kanameg/textlint-asciidoc:latest
           options: -v ${{ github.workspace }}:/documents
           run: |
+            ls -l
             textlint 機械学習メモ.adoc
