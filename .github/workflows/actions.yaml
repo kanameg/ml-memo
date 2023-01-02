@@ -14,6 +14,6 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.CR_PAT }}
           image: ghcr.io/kanameg/textlint-asciidoc:latest
-          options: --platform linux/x86_64 --rm -v ${{ github.workspace }}:/documents
+          options: -v ${{ github.workspace }}:/documents
           run: |
             textlint 機械学習メモ.adoc
