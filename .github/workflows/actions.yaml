@@ -23,6 +23,7 @@ jobs:
             ls -la
             textlint 機械学習メモ.adoc
   Build-PDF:
+    needs: Lint-Doc
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 
