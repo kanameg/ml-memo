@@ -17,7 +17,7 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.CR_PAT }}
-          image: kanameg/textlint-asciidoc:1.0.0
+          image: ghcr.io/kanameg/textlint-asciidoc:1.0.0
           options: -v ${{ github.workspace }}:/documents
           run: |
             ls -l
@@ -28,7 +28,7 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.CR_PAT }}
-          image: kanameg/asciidoctor-jp:1.0.0
+          image: ghcr.io/kanameg/asciidoctor-jp:1.0.0
           options: -v ${{ github.workspace }}:/documents
           run: |
             ls -l
