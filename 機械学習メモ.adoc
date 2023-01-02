@@ -137,3 +137,19 @@ x3 = np.sign(x) * np.log(np.abs(x))
 === Box-Cox変換
 対数変換を一般化した変換方法としてBox-Cox変換がある。
 scikit-learnの変換を利用することで、自動的に正規分布へ近い形に変換してくることができる。
+
+
+== カテゴリ変数
+
+GBDTのような決定木を利用するような場合は、ラベルエンコーディングが最も一般的な方法。
+
+=== one hot encodeing
+
+=== label encoding
+
+=== feature hashing
+
+=== frequency encoding
+
+=== target encoding
+
