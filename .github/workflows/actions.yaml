@@ -42,8 +42,7 @@ jobs:
             asciidoctor-pdf -a scripts=cjk 機械学習メモ.adoc
             ls -la
       - name: Upload PDF file
-        uses: actions/uploadartifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: ml-memo-PDF
           path: 機械学習メモ.pdf
-          
