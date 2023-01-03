@@ -172,7 +172,7 @@ df_onehot.head()
 学習に用いるのは適切ではない。ただし決定木では特定の水準のみが目的変数に影響がある場合に分岐を繰り返すことができるので
 （例えば、値4が目的変数に影響がある場合4より大きい小さいで分岐することができる）学習に用いることができる。
 
-ラベルエンコードと言わずに、順序エンコード(Ordinal Encode)という方が一般的。
+ラベルエンコードとは言わずに、順序エンコード(Ordinal Encode)という方が一般的である。
 
 PythonではPandasでもできるが、
 以下のようにlink:https://contrib.scikit-learn.org/category_encoders/ordinal.html[category_encoders.OrdinalEncoder]
