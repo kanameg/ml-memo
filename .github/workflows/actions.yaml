@@ -25,7 +25,7 @@ jobs:
           options: -v ${{ github.workspace }}:/documents
           run: |
             ls -la
-            textlint ${{ TARGET }}.adoc
+            textlint 機械学習メモ.adoc
   Build-PDF:
     name: Build PDF
     needs: Lint-Doc
@@ -42,10 +42,10 @@ jobs:
           image: ghcr.io/kanameg/asciidoctor-jp:1.0.0
           options: -v ${{ github.workspace }}:/documents
           run: |
-            asciidoctor-pdf -a scripts=cjk ${{ TARGET }}.adoc
+            asciidoctor-pdf -a scripts=cjk 機械学習メモ.adoc
             ls -la
       - name: Upload PDF file
         uses: actions/upload-artifact@v3
         with:
           name: ml-memo-PDF
-          path: ${{ TARGET }}.pdf
+          path: 機械学習メモ.pdf
