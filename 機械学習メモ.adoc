@@ -143,7 +143,23 @@ scikit-learnの変換を利用することで、自動的に正規分布へ近�
 
 GBDTのような決定木を利用するような場合は、ラベルエンコーディングが最も一般的な方法。
 
-=== one hot encodeing
+=== one-hotエンコード
+最も代表的なカテゴリ変数に対する数値変換方法。カテゴリ変数に対して、その値に該当するかどうかを0,1で表す2値変数に変換する。
+そのためnこの状態をもつカテゴリ変数にone-hotエンコードを行うとnこのダミー変数が作成される。
+カテゴリ変数の状態が多い変数にはちょっと使いにくい。
+
+PythonではPandasでもできるが、以下のようにlink:https://contrib.scikit-learn.org/category_encoders/onehot.html#category_encoders.one_hot.OneHotEncoder[category_encoders]を使った方が楽にできる。 
+```python
+import category_encoders as ce
+
+# OneHotEncodeしたい列を指定。Nullや不明の場合の補完方法も指定。
+ce_ohe = ce.OneHotEncoder(cols=['device'], handle_unknown='impute')
+
+# pd.DataFrameをそのまま突っ込む
+df_onehot = ce_ohe.fit_transform(df)
+
+df_onehot.head()
+```
 
 === label encoding
 
