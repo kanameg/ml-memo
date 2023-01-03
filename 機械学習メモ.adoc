@@ -151,7 +151,10 @@ GBDTのような決定木を利用するような場合は、ラベルエンコ�
 多重共線性を気にしてn個のダミー変数ではなく、n-1個のダミー変数にする場合があるが、
 GBDTなどのモデルは多重共線性が問題にならないのと、正則化を行っているためn個のままon-hotエンコードを行っても問題がない。
 
-PythonではPandasでもできるが、以下のようにlink:https://contrib.scikit-learn.org/category_encoders/onehot.html#category_encoders.one_hot.OneHotEncoder[category_encoders]を使った方が楽にできる。 
+PythonではPandasでもできるが、
+以下のようにlink:https://contrib.scikit-learn.org/category_encoders/onehot.html[category_encoders.one_hot.OneHotEncoder]
+を使った方が楽にできる。 
+
 ```python
 import category_encoders as ce
 
@@ -164,7 +167,26 @@ df_onehot = ce_ohe.fit_transform(df)
 df_onehot.head()
 ```
 
-=== label encoding
+=== ラベルエンコード
+ラベルエンコードは単純に水準値を0からの整数に置き換える。大小関係に意味がないため、ラベルエンコードしたものを決定木以外のモデルで
+学習に用いるのは適切ではない。ただし決定木では特定の水準のみが目的変数に影響がある場合に分岐を繰り返すことができるので
+（例えば、値4が目的変数に影響がある場合4より大きい小さいで分岐することができる）学習に用いることができる。
+
+ラベルエンコードと言わずに、順序エンコード(Ordinal Encode)という方が一般的。
+
+PythonではPandasでもできるが、
+以下のようにlink:https://contrib.scikit-learn.org/category_encoders/ordinal.html[category_encoders.ordinal.OrdinalEncoder]
+を使った方が楽にできる。
+
+```python
+import category_encoders as ce
+
+# 序数をカテゴリに付与して変換
+ce_oe = ce.OrdinalEncoder(cols=['device'], handle_unknown='impute')
+df_ordinal = ce_oe.fit_transform(df)
+
+df_ordinal.head()
+```
 
 === feature hashing
 
