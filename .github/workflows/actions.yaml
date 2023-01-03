@@ -5,6 +5,9 @@ on:
     branches:
       - master
 
+env:
+  TARGET: 機械学習メモ
+
 jobs:
   Lint-Doc:
     name: Lint Doc
@@ -22,7 +25,7 @@ jobs:
           options: -v ${{ github.workspace }}:/documents
           run: |
             ls -la
-            textlint 機械学習メモ.adoc
+            textlint ${TARGET}.adoc
   Build-PDF:
     name: Build PDF
     needs: Lint-Doc
@@ -39,10 +42,10 @@ jobs:
           image: ghcr.io/kanameg/asciidoctor-jp:1.0.0
           options: -v ${{ github.workspace }}:/documents
           run: |
-            asciidoctor-pdf -a scripts=cjk 機械学習メモ.adoc
+            asciidoctor-pdf -a scripts=cjk ${TARGET}.adoc
             ls -la
       - name: Upload PDF file
         uses: actions/upload-artifact@v3
         with:
           name: ml-memo-PDF
-          path: 機械学習メモ.pdf
+          path: ${TARGET}.pdf
