@@ -61,10 +61,12 @@ scikit-learnのランダムフォレストなどは欠損値を扱えないた�
 ==== 欠損値の補完
 欠損値を補完する場合、Pandasでは、欠損値を `NaN` にしておくことで `fillna` 関数を利用することで補完可能。
 
-```
+[source, python]
+----
 df['col'] = df['col1'].fillna(0)  # 0で補完
 df['col'] = df['col1'].fillna(df['col1'].mean())  # 平均値で補完
-```
+----
+
 
 == 数値変数
 
@@ -80,7 +82,8 @@ df['col'] = df['col1'].fillna(df['col1'].mean())  # 平均値で補完
 
 Pythonではscikit-learnのStandardScalerクラスを利用することで変換することが可能。
 
-```Python
+[source, python]
+----
 from sklearn.preprocessing import StandardScaler
 
 # 学習データに基づいて複数列の標準化を定義
@@ -90,7 +93,7 @@ scaler.fit(train_x[num_cols])
 # 変換後のデータで各列を置換
 train_x[num_cols] = scaler.transform(train_x[num_cols])
 test_x[num_cols] = scaler.transform(test_x[num_cols])
-```
+----
 
 学習データとテストデータを使って標準化を行うか、学習データのみを使って標準化を行うかは基本的にはどちらでも大差はない。
 実務上は学習データしか手に入らないので学習データのみで行う場合が多い。学習データのみで行うと過学習してしまうのでテストデータも含めて
@@ -103,7 +106,9 @@ test_x[num_cols] = scaler.transform(test_x[num_cols])
 変換後の平均が0にならない、外れ値の影響を顕著に受けるなどの問題がある。範囲が決まっている値の場合は使う場合がある。
 
 Pythonではscikit-learnのMinMaxScalerクラスを利用することで変換することが可能。
-```python
+
+[source, python]
+----
 from sklearn.preprocessing import MinMaxScaler
 
 # 学習データに基づいて複数列のMin-Maxスケーリングを定義
@@ -113,7 +118,7 @@ scaler.fit(train_x[num_cols])
 # 変換後のデータで各列を置換
 train_x[num_cols] = scaler.transform(train_x[num_cols])
 test_x[num_cols] = scaler.transform(test_x[num_cols])
-```
+----
 
 ==== 非線形変換
 正規分布ではない分布を正規分布に近い形へ変換するなど、
@@ -123,7 +128,8 @@ test_x[num_cols] = scaler.transform(test_x[num_cols])
 ただし値が0をとりうる場合は0の対数は取れないため、`log(x+1)` で変換をする。
 また負の値を取りうる場合は、絶対値の対数を取り結果に符号を付加する場合もある。
 
-```python
+[source, python]
+----
 # 単に対数をとる
 x1 = np.log(x)
 
@@ -132,7 +138,7 @@ x2 = np.log1p(x)
 
 # 絶対値の対数をとってから元の符号を付加する
 x3 = np.sign(x) * np.log(np.abs(x))
-```
+----
 
 === Box-Cox変換
 対数変換を一般化した変換方法としてBox-Cox変換がある。
@@ -155,7 +161,8 @@ PythonではPandasでもできるが、
 以下のようにlink:https://contrib.scikit-learn.org/category_encoders/onehot.html[category_encoders.OneHotEncoder]
 を使った方が楽にできる。 
 
-```python
+[source, python]
+----
 import category_encoders as ce
 
 # OneHotEncodeしたい列を指定。Nullや不明の場合の補完方法も指定。
@@ -165,7 +172,8 @@ ce_ohe = ce.OneHotEncoder(cols=['device'], handle_unknown='impute')
 df_onehot = ce_ohe.fit_transform(df)
 
 df_onehot.head()
-```
+----
+
 
 === ラベルエンコード
 ラベルエンコードは単純に水準値を0からの整数に置き換える。大小関係に意味がないため、ラベルエンコードしたものを決定木以外のモデルで
@@ -178,7 +186,8 @@ PythonではPandasでもできるが、
 以下のようにlink:https://contrib.scikit-learn.org/category_encoders/ordinal.html[category_encoders.OrdinalEncoder]
 を使った方が楽にできる。
 
-```python
+[source, python]
+----
 import category_encoders as ce
 
 # 序数をカテゴリに付与して変換
@@ -186,8 +195,30 @@ ce_oe = ce.OrdinalEncoder(cols=['device'], handle_unknown='impute')
 df_ordinal = ce_oe.fit_transform(df)
 
 df_ordinal.head()
-```
-=== feature hashing
+----
+
+=== フィーチャハッシング
+フィーチャーハッシング(Feature Hashing)は、one-hotエンコードでは水準数の数によって大量のダミー変数が作成されるため、
+ダミー変数の数を設定で限定しハッシュを用いることで2値のビットを立てる位置を変更します。
+そのため異なる水準値にもかかわらず、同じビットに1が立つ場合があります。
+
+GBDTなどの決定木のモデルでは、このエンコードを利用するよりも、ラベルエンコードを使った方が簡単だし
+良い性能が得られる場合が多い。
+
+pythonでは、link:https://contrib.scikit-learn.org/category_encoders/hashing.html[category_encoders.HashingEncoder]を使うと簡単に変換可能。
+
+[source, python]
+----
+import category_encoders as ce
+
+# FeatureHashingしたい列を指定。Nullや不明の場合の補完方法も指定。
+ce_hse = ce.Hashing(cols=['device'], handle_unknown='impute')
+
+# pd.DataFrameをそのまま突っ込む
+df_hash = ce_hse.fit_transform(df)
+
+df_hash.head()
+----
 
 === frequency encoding
 
