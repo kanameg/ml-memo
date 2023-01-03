@@ -148,6 +148,9 @@ GBDTのような決定木を利用するような場合は、ラベルエンコ�
 そのためnこの状態をもつカテゴリ変数にone-hotエンコードを行うとnこのダミー変数が作成される。
 カテゴリ変数の状態が多い変数にはちょっと使いにくい。
 
+多重共線性を気にしてn個のダミー変数ではなく、n-1個のダミー変数にする場合があるが、
+GBDTなどのモデルは多重共線性が問題にならないのと、正則化を行っているためn個のままon-hotエンコードを行っても問題がない。
+
 PythonではPandasでもできるが、以下のようにlink:https://contrib.scikit-learn.org/category_encoders/onehot.html#category_encoders.one_hot.OneHotEncoder[category_encoders]を使った方が楽にできる。 
 ```python
 import category_encoders as ce
