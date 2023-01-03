@@ -152,7 +152,7 @@ GBDTのような決定木を利用するような場合は、ラベルエンコ�
 GBDTなどのモデルは多重共線性が問題にならないのと、正則化を行っているためn個のままon-hotエンコードを行っても問題がない。
 
 PythonではPandasでもできるが、
-以下のようにlink:https://contrib.scikit-learn.org/category_encoders/onehot.html[category_encoders.one_hot.OneHotEncoder]
+以下のようにlink:https://contrib.scikit-learn.org/category_encoders/onehot.html[category_encoders.OneHotEncoder]
 を使った方が楽にできる。 
 
 ```python
@@ -175,7 +175,7 @@ df_onehot.head()
 ラベルエンコードと言わずに、順序エンコード(Ordinal Encode)という方が一般的。
 
 PythonではPandasでもできるが、
-以下のようにlink:https://contrib.scikit-learn.org/category_encoders/ordinal.html[category_encoders.ordinal.OrdinalEncoder]
+以下のようにlink:https://contrib.scikit-learn.org/category_encoders/ordinal.html[category_encoders.OrdinalEncoder]
 を使った方が楽にできる。
 
 ```python
