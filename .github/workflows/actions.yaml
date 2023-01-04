@@ -44,7 +44,7 @@ jobs:
           options: -v ${{ github.workspace }}:/documents
           run: |
             asciidoctor-pdf -a scripts=cjk ${{ env.TARGET }}.adoc
-            asciidoctor-epub3 -a scripts=cjk ${{ env.TARGET }}.adoc
+            asciidoctor-epub3 ${{ env.TARGET }}.adoc
             ls -la
       - name: Upload PDF file
         uses: actions/upload-artifact@v3
