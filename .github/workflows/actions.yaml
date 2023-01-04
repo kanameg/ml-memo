@@ -52,4 +52,4 @@ jobs:
           name: ml-memo-PDF
           path: |
             ${{ env.TARGET }}.pdf
-            ${{ env.TARGET }}.epub3
+            ${{ env.TARGET }}.epub
