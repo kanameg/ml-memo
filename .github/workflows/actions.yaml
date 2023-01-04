@@ -28,7 +28,6 @@ jobs:
             ls -la
             textlint ${{ env.TARGET }}.adoc
   Build-PDF:
-    if: ${{ github.ref_name == 'master' }}
     name: Build PDF
     needs: Lint-Doc
     runs-on: ubuntu-latest
@@ -45,9 +44,12 @@ jobs:
           options: -v ${{ github.workspace }}:/documents
           run: |
             asciidoctor-pdf -a scripts=cjk ${{ env.TARGET }}.adoc
+            asciidoctor-epub3 -a scripts=cjk ${{ env.TARGET }}.adoc
             ls -la
       - name: Upload PDF file
         uses: actions/upload-artifact@v3
         with:
           name: ml-memo-PDF
-          path: ${{ env.TARGET }}.pdf
+          path: |
+            ${{ env.TARGET }}.pdf
+            ${{ env.TARGET }}.epub3
