@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - master
-      - devlop
+      - develop
 
 env:
   TARGET: 機械学習メモ
