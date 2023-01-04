@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - devlop
 
 env:
   TARGET: 機械学習メモ
@@ -27,6 +28,7 @@ jobs:
             ls -la
             textlint ${{ env.TARGET }}.adoc
   Build-PDF:
+    if: ${{ github.ref_name == 'master' }}
     name: Build PDF
     needs: Lint-Doc
     runs-on: ubuntu-latest
